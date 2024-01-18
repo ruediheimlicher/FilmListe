@@ -149,7 +149,7 @@ extension rViewController
    
    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
       let zeile = FilmArray[row]
-      print("ident: \(tableColumn!.identifier.rawValue)")
+      //print("ident: \(tableColumn!.identifier.rawValue)")
       let ident = tableColumn!.identifier.rawValue
       if ident == "titel"
       {
@@ -167,7 +167,13 @@ extension rViewController
          return cell
 
       }
-      else
+      else if ident == "play"
+      {
+         let cell = tableView.makeView(withIdentifier: (tableColumn!.identifier), owner: self) as? NSTableCellView
+         //cell!.imageView?.image = NSImage(named:"play")
+         return cell
+      }
+      else 
       {
          let cell = tableView.makeView(withIdentifier: (tableColumn!.identifier), owner: self) as? NSTableCellView
          return cell
