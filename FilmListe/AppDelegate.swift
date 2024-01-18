@@ -6,6 +6,8 @@
 //
 
 import Cocoa
+import AVKit
+import AVFoundation
 
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
