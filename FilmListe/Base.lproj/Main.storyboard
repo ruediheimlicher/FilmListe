@@ -742,7 +742,7 @@
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R9c-rc-QVa">
-                                                                    <rect key="frame" x="0.0" y="13" width="114" height="16"/>
+                                                                    <rect key="frame" x="1" y="13" width="114" height="16"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="ksk-3i-eZc">
                                                                         <font key="font" usesAppearanceFont="YES"/>
@@ -773,11 +773,11 @@
                                                             <rect key="frame" x="139" y="0.0" width="762" height="41"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FFe-dF-oTn">
-                                                                    <rect key="frame" x="0.0" y="13" width="762" height="16"/>
+                                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" id="FFe-dF-oTn">
+                                                                    <rect key="frame" x="0.0" y="3" width="762" height="35"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="XEm-OS-7wY">
-                                                                        <font key="font" usesAppearanceFont="YES"/>
+                                                                        <font key="font" metaFont="system" size="28"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                     </textFieldCell>
@@ -789,7 +789,7 @@
                                                         </tableCellView>
                                                     </prototypeCellViews>
                                                 </tableColumn>
-                                                <tableColumn identifier="play" width="31" minWidth="10" maxWidth="3.4028234663852886e+38" id="fIi-oG-aSE">
+                                                <tableColumn identifier="play" width="47" minWidth="10" maxWidth="3.4028234663852886e+38" id="fIi-oG-aSE">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -797,14 +797,14 @@
                                                     <customCell key="dataCell" alignment="left" id="VOY-10-VQO" customClass="NSImageCell"/>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
-                                                        <tableCellView id="twc-oC-FHe">
-                                                            <rect key="frame" x="918" y="0.0" width="28" height="17"/>
+                                                        <tableCellView id="twc-oC-FHe" customClass="rButtonZelle" customModule="FilmListe" customModuleProvider="target">
+                                                            <rect key="frame" x="918" y="0.0" width="44" height="38"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ho5-D4-BOi">
-                                                                    <rect key="frame" x="-23" y="-8" width="75" height="32"/>
+                                                                <button verticalHuggingPriority="750" fixedFrame="YES" tag="1001" translatesAutoresizingMaskIntoConstraints="NO" id="Ho5-D4-BOi" customClass="NSPopUpButton">
+                                                                    <rect key="frame" x="-5" y="-2" width="50" height="42"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                                    <buttonCell key="cell" type="square" title="Play" bezelStyle="shadowlessSquare" image="play" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="9Bh-md-0pR">
+                                                                    <buttonCell key="cell" type="square" title="Play" bezelStyle="shadowlessSquare" image="play-32" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="9Bh-md-0pR">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                         <font key="font" metaFont="system"/>
                                                                     </buttonCell>
@@ -867,6 +867,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="play" width="94" height="94"/>
+        <image name="play-32" width="32" height="32"/>
     </resources>
 </document>
