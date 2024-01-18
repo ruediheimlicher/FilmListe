@@ -149,10 +149,31 @@ extension rViewController
    
    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
       let zeile = FilmArray[row]
-      //print("Filmzeile: \(zeile)")
-      let cell = tableView.makeView(withIdentifier: (tableColumn!.identifier), owner: self) as? NSTableCellView
-      cell?.textField?.stringValue = (zeile[tableColumn!.identifier.rawValue]!)
+      print("ident: \(tableColumn!.identifier.rawValue)")
+      let ident = tableColumn!.identifier.rawValue
+      if ident == "titel"
+      {
+         //print("Filmzeile: \(zeile)")
+         let cell = tableView.makeView(withIdentifier: (tableColumn!.identifier), owner: self) as? NSTableCellView
+         
+         cell?.textField?.stringValue = (zeile[tableColumn!.identifier.rawValue]!)
+         return cell
+      }
+      else if ident == "pfad"
+      {
+         let cell = tableView.makeView(withIdentifier: (tableColumn!.identifier), owner: self) as? NSTableCellView
+         
+         cell?.textField?.stringValue = (zeile[tableColumn!.identifier.rawValue]!)
+         return cell
+
+      }
+      else
+      {
+         let cell = tableView.makeView(withIdentifier: (tableColumn!.identifier), owner: self) as? NSTableCellView
+         return cell
+         
+      }
       
-      return cell
+      
    }
 }
