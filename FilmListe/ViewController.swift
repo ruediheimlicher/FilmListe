@@ -11,10 +11,49 @@ import AVKit
 import AVFoundation
 import SwiftUI
 
-class AVPlayerView : NSView
+class rPlayerController: NSViewController 
 {
+    var player : AVPlayer!
+    var playerLayer : CALayer!
+
+    @IBOutlet weak var videoPlayer: AVPlayerView!
+
+    override func viewDidLoad() 
+   {
+        super.viewDidLoad()
+
+        guard let path = Bundle.main.path(forResource: "Background", ofType:"mp4") else 
+      {
+            debugPrint("Not found")
+            return
+        }
+       playerLayer = AVPlayerLayer(player: player)
+      
+      let playerURL = AVPlayer(url: URL(fileURLWithPath: path))
+      playerLayer.frame = self.view.bounds
+      self.view.layer?.addSublayer(playerLayer)
+        
+      
+      player.play()
+    }
    
-}
+   @objc func setURL(filmURL:URL)
+   {
+      
+      self.player = AVPlayer(url:filmURL)
+      self.player.play()
+      
+   }
+   required init?(coder  aDecoder : NSCoder) 
+   {
+      super.init(coder: aDecoder)
+ //     self.player?.target = self
+ //     self.Play?.action = #selector(ButtonUsed(_:))
+    }
+ 
+}// class rPlayerController
+
+
 
 class rButtonZelle:NSTableCellView, NSMenuDelegate,NSTableViewDataSource,NSTabViewDelegate
 
@@ -78,11 +117,12 @@ class rButtonZelle:NSTableCellView, NSMenuDelegate,NSTableViewDataSource,NSTabVi
    {
        print("ButtonUsed \(sender.tag)")
    }
+   
    required init?(coder  aDecoder : NSCoder) 
    {
       super.init(coder: aDecoder)
-      self.Play?.target = self
-      self.Play?.action = #selector(ButtonUsed(_:))
+      //self.Play?.target = self
+      //self.Play?.action = #selector(ButtonUsed(_:))
     }
    override init(frame: CGRect) 
    {
@@ -97,24 +137,44 @@ class rViewController: NSViewController ,NSTableViewDelegate,NSTableViewDataSour
 {
 
    var pfad = ""
+   
+   @IBOutlet weak var VolumeFeld: NSTextField!
    @IBOutlet weak var Filmordner: NSTextField!
    
    @IBOutlet weak var Filmtable: NSTableView!
 
    @IBOutlet var playerView:AVPlayerView!
    
+   var hintergrundfarbe = NSColor()
+   var kapitelrepop = NSPopUpButton()
    var FilmArray = [[String:String]]()
    var fileURLArray = [URL]()
    
    var player : AVPlayer!
    
+   var Playerfenster:rFilmController!
+   
    override func viewDidLoad() {
       super.viewDidLoad()
       // https://developer.apple.com/forums/thread/654874      Filmtable.usesAutomaticRowHeights = true
       // Do any additional setup after loading the view.
-      
+      self.view.window?.acceptsMouseMovedEvents = true
+      Filmtable.headerView?.frame = NSMakeRect(0, 0, (Filmtable.headerView?.frame.width)!, 32.00)
+       Filmtable.headerView?.wantsLayer = true
+      Filmtable.headerView?.layer?.backgroundColor = NSColor.red.cgColor
+   
+      //let view = view[0] as! NSView
+      self.view.wantsLayer = true
+      hintergrundfarbe  = NSColor.init(red: 8.0/255, 
+                                       green: 111.0/255, 
+                                       blue: 248.0/255, 
+                                       alpha: 0.98)
+      self.view.layer?.backgroundColor =  hintergrundfarbe.cgColor
+
+      Playerfenster = rFilmController()
       NotificationCenter.default.addObserver(self, selector:#selector(PlayAktion(_:)),name:NSNotification.Name(rawValue: "tableplay"),object:nil)
-      
+      kapitelrepop.removeAllItems()
+
    }
 
    override var representedObject: Any? {
@@ -141,14 +201,31 @@ class rViewController: NSViewController ,NSTableViewDelegate,NSTableViewDataSour
          
       }
 */
+      // https://stackoverflow.com/questions/65874089/open-a-short-video-using-quicktime-player
+      let config = NSWorkspace.OpenConfiguration()
+      config.activates = true
+      let filmurl = fileURLArray[zeile]
+      NSWorkspace.shared.open(
+          [filmurl],
+          withApplicationAt: URL(fileURLWithPath: "/System/Applications/QuickTime Player.app"),
+          configuration: config
+      )
+      return
+      
       
       var player = AVPlayer(url:fileURLArray[zeile])
       
-      //let videoURL = URL(string: "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_5MB.mp4")
+      let videoURL = URL(string: "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_5MB.mp4")
       //let player = AVPlayer(url: fileURLArray[zeile])
-      let playerLayer = AVPlayerLayer(player: player)
+      
+      //Filmfenster.setURL(filmURL: fileURLArray[zeile])
+      
+      //return
+      let playerLayer:CALayer = AVPlayerLayer(player: player)
+      
       playerLayer.frame = self.view.bounds
       self.view.layer?.addSublayer(playerLayer)
+      player.volume = 0.8
       player.play()
 
 
@@ -200,6 +277,7 @@ class rViewController: NSViewController ,NSTableViewDelegate,NSTableViewDataSour
             self.Filmordner.stringValue = selectedPath
          }
          openPanel.close()
+         
          self.readList()
       }
       
@@ -209,6 +287,7 @@ class rViewController: NSViewController ,NSTableViewDelegate,NSTableViewDataSour
    func readList()
    {
       // von TV_Titel
+      self.pfad = Filmordner.stringValue
       print("Pfad: *\(pfad)*")
       let fileManager = FileManager.default
       
@@ -219,7 +298,7 @@ class rViewController: NSViewController ,NSTableViewDelegate,NSTableViewDataSour
          
          for item in items 
          {
-            //print("\t \(item)")
+            print("\t \(item)")
          }
          
          for item in items 
@@ -269,7 +348,8 @@ class rViewController: NSViewController ,NSTableViewDelegate,NSTableViewDataSour
          {
             fileURLArray.append(filmzeile)
             var filmzeilendic  = [String:String]()
-            filmzeilendic["pfad"] = filmzeile.path
+            filmzeilendic["pfad"] = "neu"//filmzeile.path
+            //filmzeilendic["viewed"] = "0"
             var zeilenarray =  filmzeile.path.components(separatedBy: "/")
             let anz = zeilenarray.count
             let datumstring = zeilenarray.first
@@ -277,12 +357,12 @@ class rViewController: NSViewController ,NSTableViewDelegate,NSTableViewDataSour
             let volumestring = zeilenarray[anz-3]
             let titelstring = zeilenarray.last
             filmzeilendic["titel"] = zeilenarray.last
-            print("filmzeile: \(filmzeile.path) volumestring: \(volumestring) genrestring: \(genrestring) titelstring: \(titelstring)")
-            print("filmzeilendic: \(filmzeilendic)")
+            //print("filmzeile: \(filmzeile.path) volumestring: \(volumestring) genrestring: \(genrestring) titelstring: \(titelstring)")
+            //print("filmzeilendic: \(filmzeilendic)")
             FilmArray.append(filmzeilendic)
             
          }// for urls
-         print("FilmArray: \(FilmArray)")
+         //print("FilmArray: \(FilmArray)")
          Filmtable.reloadData()
          // process files
       } catch {
@@ -308,7 +388,7 @@ extension rViewController
    
    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
       let zeile = FilmArray[row]
-      print("ident: \(tableColumn!.identifier.rawValue)")
+      //print("ident: \(tableColumn!.identifier.rawValue)")
       let ident = tableColumn!.identifier.rawValue
       if ident == "titel"
       {
@@ -328,7 +408,7 @@ extension rViewController
       }
       else if ident == "play"
       {
-         print("ident play")
+         //print("ident play")
          let cell = tableView.makeView(withIdentifier: (tableColumn!.identifier), owner: self) as? rButtonZelle
         // cell!.imageView?.image = NSImage(named:"play")
          return cell
