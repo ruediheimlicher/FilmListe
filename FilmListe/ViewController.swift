@@ -294,6 +294,7 @@ class rViewController: NSViewController ,NSTableViewDelegate,NSTableViewDataSour
       // https://www.hackingwithswift.com/example-code/system/how-to-read-the-contents-of-a-directory-using-filemanager
       do 
       {
+         //pfad = "/Volumes/TV_N"
          let items = try fileManager.contentsOfDirectory(atPath: pfad)
          
          for item in items 
