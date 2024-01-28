@@ -685,7 +685,7 @@
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
+                <windowController id="B8D-0N-5wS" customClass="FilmListeWindowController" customModule="FilmListe" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -863,11 +863,39 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zan-aC-MPE">
+                                <rect key="frame" x="1090" y="727" width="78" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="q9m-GR-Rnm" id="xzf-eZ-3zQ">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="menu"/>
+                                    <menu key="menu" id="sec-Xn-y5E">
+                                        <items>
+                                            <menuItem title="Item 1" state="on" id="q9m-GR-Rnm"/>
+                                            <menuItem title="Item 2" id="hC9-EX-vK2"/>
+                                            <menuItem title="Item 3" id="ZvS-cN-mKf"/>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                            </popUpButton>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cyn-XH-8tR">
+                                <rect key="frame" x="836" y="731" width="61" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" title="Quit" bezelStyle="shadowlessSquare" image="quit" imagePosition="leading" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="WUr-mR-o4K">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="report_Quit:" target="XfG-lQ-9wD" id="0If-Xq-Njd"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <connections>
                         <outlet property="Filmordner" destination="B6b-nk-MIO" id="yqo-MZ-PQZ"/>
                         <outlet property="Filmtable" destination="How-kX-nnl" id="PXb-hf-V8y"/>
+                        <outlet property="Kapitelpop" destination="Zan-aC-MPE" id="dlx-fj-Mw3"/>
+                        <outlet property="Quitknopf" destination="Cyn-XH-8tR" id="Dxw-4T-McQ"/>
                         <outlet property="VolumeFeld" destination="Kzf-6z-fCd" id="owa-5C-ZFK"/>
                     </connections>
                 </viewController>
@@ -932,5 +960,6 @@
     <resources>
         <image name="ok_image" width="123" height="119"/>
         <image name="play-32" width="32" height="32"/>
+        <image name="quit" width="512" height="512"/>
     </resources>
 </document>
