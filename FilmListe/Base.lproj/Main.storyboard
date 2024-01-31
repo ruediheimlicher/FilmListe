@@ -926,7 +926,7 @@
                 </windowController>
                 <customObject id="fQM-O1-YMZ" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1242" y="763"/>
+            <point key="canvasLocation" x="1308" y="715"/>
         </scene>
         <!--Player Controller-->
         <scene sceneID="HAL-kD-aGY">
@@ -951,12 +951,18 @@
                             </textField>
                         </subviews>
                     </view>
+                    <connections>
+                        <segue destination="lJ3-dj-EKO" kind="show" id="s0F-Pj-Pdk"/>
+                    </connections>
                 </viewController>
                 <customObject id="0gW-Mw-UEM" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="431" y="1695"/>
+            <point key="canvasLocation" x="478" y="1744"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="s0F-Pj-Pdk"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="ok_image" width="123" height="119"/>
         <image name="play-32" width="32" height="32"/>
